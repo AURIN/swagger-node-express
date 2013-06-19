@@ -100,9 +100,10 @@ function setResourceListingPaths(app) {
 }
 
 function basePathFromApi(path) {
-  var l = resourcePath.replace(formatString, jsonSuffix);
-  var p = path.substring(l.length + 1) + formatString;
-  return p;
+	var l = resourcePath.replace(formatString, jsonSuffix);
+	var p = path.split(l + "/")[1]
+			+ ((path.indexOf(formatString) >= 0) ? formatString : "");
+	return p;
 }
 
 function baseApiFromPath(path) {
@@ -600,6 +601,7 @@ exports.params = params;
 exports.queryParam = exports.params.query;
 exports.pathParam = exports.params.path;
 exports.bodyParam = exports.params.body;
+//exports.headerParam = exports.params.header;
 exports.getModels = allModels;
 
 exports.error = error;
@@ -626,4 +628,3 @@ exports.setAppHandler = setAppHandler;
 exports.discover = discover;
 exports.discoverFile = discoverFile;
 exports.configureSwaggerPaths = configureSwaggerPaths;
-exports.setHeaders = setHeaders;
